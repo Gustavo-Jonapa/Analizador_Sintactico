@@ -1,0 +1,607 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DIVIDE
+    IF
+    MINUS
+    PLUS
+    TIMES
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list
+Rule 2     statement_list -> statement_list statement
+Rule 3     statement_list -> statement
+Rule 4     statement -> for_statement
+Rule 5     statement -> func_call SEMI
+Rule 6     for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+Rule 7     statement_list_opt -> statement_list
+Rule 8     statement_list_opt -> empty
+Rule 9     assignment -> ID EQUALS expression
+Rule 10    expression -> NUMBER
+Rule 11    expression -> ID
+Rule 12    condition -> ID LE expression
+Rule 13    condition -> ID GE expression
+Rule 14    condition -> ID LT expression
+Rule 15    condition -> ID GT expression
+Rule 16    condition -> ID EQEQ expression
+Rule 17    increment -> ID PLUSPLUS
+Rule 18    increment -> ID PLUSEQ expression
+Rule 19    func_call -> SYSTEM DOT PRINT LPAREN args RPAREN
+Rule 20    args -> args COMMA arg
+Rule 21    args -> arg
+Rule 22    args -> empty
+Rule 23    arg -> STRING
+Rule 24    arg -> expression
+Rule 25    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COMMA                : 20
+DIVIDE               : 
+DOT                  : 19
+EQEQ                 : 16
+EQUALS               : 9
+FOR                  : 6
+GE                   : 13
+GT                   : 15
+ID                   : 9 11 12 13 14 15 16 17 18
+IF                   : 
+LBRACE               : 6
+LE                   : 12
+LPAREN               : 6 19
+LT                   : 14
+MINUS                : 
+NUMBER               : 10
+PLUS                 : 
+PLUSEQ               : 18
+PLUSPLUS             : 17
+PRINT                : 19
+RBRACE               : 6
+RPAREN               : 6 19
+SEMI                 : 5 6 6
+STRING               : 23
+SYSTEM               : 19
+TIMES                : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+arg                  : 20 21
+args                 : 19 20
+assignment           : 6
+condition            : 6
+empty                : 8 22
+expression           : 9 12 13 14 15 16 18 24
+for_statement        : 4
+func_call            : 5
+increment            : 6
+program              : 0
+statement            : 2 3
+statement_list       : 1 2 7
+statement_list_opt   : 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . for_statement
+    (5) statement -> . func_call SEMI
+    (6) for_statement -> . FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (19) func_call -> . SYSTEM DOT PRINT LPAREN args RPAREN
+
+    FOR             shift and go to state 6
+    SYSTEM          shift and go to state 7
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 2
+    statement                      shift and go to state 3
+    for_statement                  shift and go to state 4
+    func_call                      shift and go to state 5
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . for_statement
+    (5) statement -> . func_call SEMI
+    (6) for_statement -> . FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (19) func_call -> . SYSTEM DOT PRINT LPAREN args RPAREN
+
+    $end            reduce using rule 1 (program -> statement_list .)
+    FOR             shift and go to state 6
+    SYSTEM          shift and go to state 7
+
+    statement                      shift and go to state 8
+    for_statement                  shift and go to state 4
+    func_call                      shift and go to state 5
+
+state 3
+
+    (3) statement_list -> statement .
+
+    FOR             reduce using rule 3 (statement_list -> statement .)
+    SYSTEM          reduce using rule 3 (statement_list -> statement .)
+    $end            reduce using rule 3 (statement_list -> statement .)
+    RBRACE          reduce using rule 3 (statement_list -> statement .)
+
+
+state 4
+
+    (4) statement -> for_statement .
+
+    FOR             reduce using rule 4 (statement -> for_statement .)
+    SYSTEM          reduce using rule 4 (statement -> for_statement .)
+    $end            reduce using rule 4 (statement -> for_statement .)
+    RBRACE          reduce using rule 4 (statement -> for_statement .)
+
+
+state 5
+
+    (5) statement -> func_call . SEMI
+
+    SEMI            shift and go to state 9
+
+
+state 6
+
+    (6) for_statement -> FOR . LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+
+    LPAREN          shift and go to state 10
+
+
+state 7
+
+    (19) func_call -> SYSTEM . DOT PRINT LPAREN args RPAREN
+
+    DOT             shift and go to state 11
+
+
+state 8
+
+    (2) statement_list -> statement_list statement .
+
+    FOR             reduce using rule 2 (statement_list -> statement_list statement .)
+    SYSTEM          reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+    RBRACE          reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 9
+
+    (5) statement -> func_call SEMI .
+
+    FOR             reduce using rule 5 (statement -> func_call SEMI .)
+    SYSTEM          reduce using rule 5 (statement -> func_call SEMI .)
+    $end            reduce using rule 5 (statement -> func_call SEMI .)
+    RBRACE          reduce using rule 5 (statement -> func_call SEMI .)
+
+
+state 10
+
+    (6) for_statement -> FOR LPAREN . assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (9) assignment -> . ID EQUALS expression
+
+    ID              shift and go to state 13
+
+    assignment                     shift and go to state 12
+
+state 11
+
+    (19) func_call -> SYSTEM DOT . PRINT LPAREN args RPAREN
+
+    PRINT           shift and go to state 14
+
+
+state 12
+
+    (6) for_statement -> FOR LPAREN assignment . SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+
+    SEMI            shift and go to state 15
+
+
+state 13
+
+    (9) assignment -> ID . EQUALS expression
+
+    EQUALS          shift and go to state 16
+
+
+state 14
+
+    (19) func_call -> SYSTEM DOT PRINT . LPAREN args RPAREN
+
+    LPAREN          shift and go to state 17
+
+
+state 15
+
+    (6) for_statement -> FOR LPAREN assignment SEMI . condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (12) condition -> . ID LE expression
+    (13) condition -> . ID GE expression
+    (14) condition -> . ID LT expression
+    (15) condition -> . ID GT expression
+    (16) condition -> . ID EQEQ expression
+
+    ID              shift and go to state 19
+
+    condition                      shift and go to state 18
+
+state 16
+
+    (9) assignment -> ID EQUALS . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 21
+
+state 17
+
+    (19) func_call -> SYSTEM DOT PRINT LPAREN . args RPAREN
+    (20) args -> . args COMMA arg
+    (21) args -> . arg
+    (22) args -> . empty
+    (23) arg -> . STRING
+    (24) arg -> . expression
+    (25) empty -> .
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    STRING          shift and go to state 26
+    RPAREN          reduce using rule 25 (empty -> .)
+    COMMA           reduce using rule 25 (empty -> .)
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    args                           shift and go to state 23
+    arg                            shift and go to state 24
+    empty                          shift and go to state 25
+    expression                     shift and go to state 27
+
+state 18
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition . SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+
+    SEMI            shift and go to state 28
+
+
+state 19
+
+    (12) condition -> ID . LE expression
+    (13) condition -> ID . GE expression
+    (14) condition -> ID . LT expression
+    (15) condition -> ID . GT expression
+    (16) condition -> ID . EQEQ expression
+
+    LE              shift and go to state 29
+    GE              shift and go to state 30
+    LT              shift and go to state 31
+    GT              shift and go to state 32
+    EQEQ            shift and go to state 33
+
+
+state 20
+
+    (11) expression -> ID .
+
+    SEMI            reduce using rule 11 (expression -> ID .)
+    RPAREN          reduce using rule 11 (expression -> ID .)
+    COMMA           reduce using rule 11 (expression -> ID .)
+
+
+state 21
+
+    (9) assignment -> ID EQUALS expression .
+
+    SEMI            reduce using rule 9 (assignment -> ID EQUALS expression .)
+
+
+state 22
+
+    (10) expression -> NUMBER .
+
+    SEMI            reduce using rule 10 (expression -> NUMBER .)
+    RPAREN          reduce using rule 10 (expression -> NUMBER .)
+    COMMA           reduce using rule 10 (expression -> NUMBER .)
+
+
+state 23
+
+    (19) func_call -> SYSTEM DOT PRINT LPAREN args . RPAREN
+    (20) args -> args . COMMA arg
+
+    RPAREN          shift and go to state 34
+    COMMA           shift and go to state 35
+
+
+state 24
+
+    (21) args -> arg .
+
+    RPAREN          reduce using rule 21 (args -> arg .)
+    COMMA           reduce using rule 21 (args -> arg .)
+
+
+state 25
+
+    (22) args -> empty .
+
+    RPAREN          reduce using rule 22 (args -> empty .)
+    COMMA           reduce using rule 22 (args -> empty .)
+
+
+state 26
+
+    (23) arg -> STRING .
+
+    RPAREN          reduce using rule 23 (arg -> STRING .)
+    COMMA           reduce using rule 23 (arg -> STRING .)
+
+
+state 27
+
+    (24) arg -> expression .
+
+    RPAREN          reduce using rule 24 (arg -> expression .)
+    COMMA           reduce using rule 24 (arg -> expression .)
+
+
+state 28
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI . increment RPAREN LBRACE statement_list_opt RBRACE
+    (17) increment -> . ID PLUSPLUS
+    (18) increment -> . ID PLUSEQ expression
+
+    ID              shift and go to state 37
+
+    increment                      shift and go to state 36
+
+state 29
+
+    (12) condition -> ID LE . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 38
+
+state 30
+
+    (13) condition -> ID GE . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 39
+
+state 31
+
+    (14) condition -> ID LT . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 40
+
+state 32
+
+    (15) condition -> ID GT . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 41
+
+state 33
+
+    (16) condition -> ID EQEQ . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 42
+
+state 34
+
+    (19) func_call -> SYSTEM DOT PRINT LPAREN args RPAREN .
+
+    SEMI            reduce using rule 19 (func_call -> SYSTEM DOT PRINT LPAREN args RPAREN .)
+
+
+state 35
+
+    (20) args -> args COMMA . arg
+    (23) arg -> . STRING
+    (24) arg -> . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    STRING          shift and go to state 26
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    arg                            shift and go to state 43
+    expression                     shift and go to state 27
+
+state 36
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI increment . RPAREN LBRACE statement_list_opt RBRACE
+
+    RPAREN          shift and go to state 44
+
+
+state 37
+
+    (17) increment -> ID . PLUSPLUS
+    (18) increment -> ID . PLUSEQ expression
+
+    PLUSPLUS        shift and go to state 45
+    PLUSEQ          shift and go to state 46
+
+
+state 38
+
+    (12) condition -> ID LE expression .
+
+    SEMI            reduce using rule 12 (condition -> ID LE expression .)
+
+
+state 39
+
+    (13) condition -> ID GE expression .
+
+    SEMI            reduce using rule 13 (condition -> ID GE expression .)
+
+
+state 40
+
+    (14) condition -> ID LT expression .
+
+    SEMI            reduce using rule 14 (condition -> ID LT expression .)
+
+
+state 41
+
+    (15) condition -> ID GT expression .
+
+    SEMI            reduce using rule 15 (condition -> ID GT expression .)
+
+
+state 42
+
+    (16) condition -> ID EQEQ expression .
+
+    SEMI            reduce using rule 16 (condition -> ID EQEQ expression .)
+
+
+state 43
+
+    (20) args -> args COMMA arg .
+
+    RPAREN          reduce using rule 20 (args -> args COMMA arg .)
+    COMMA           reduce using rule 20 (args -> args COMMA arg .)
+
+
+state 44
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN . LBRACE statement_list_opt RBRACE
+
+    LBRACE          shift and go to state 47
+
+
+state 45
+
+    (17) increment -> ID PLUSPLUS .
+
+    RPAREN          reduce using rule 17 (increment -> ID PLUSPLUS .)
+
+
+state 46
+
+    (18) increment -> ID PLUSEQ . expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 22
+    ID              shift and go to state 20
+
+    expression                     shift and go to state 48
+
+state 47
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE . statement_list_opt RBRACE
+    (7) statement_list_opt -> . statement_list
+    (8) statement_list_opt -> . empty
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (25) empty -> .
+    (4) statement -> . for_statement
+    (5) statement -> . func_call SEMI
+    (6) for_statement -> . FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (19) func_call -> . SYSTEM DOT PRINT LPAREN args RPAREN
+
+    RBRACE          reduce using rule 25 (empty -> .)
+    FOR             shift and go to state 6
+    SYSTEM          shift and go to state 7
+
+    statement_list_opt             shift and go to state 49
+    statement_list                 shift and go to state 50
+    empty                          shift and go to state 51
+    statement                      shift and go to state 3
+    for_statement                  shift and go to state 4
+    func_call                      shift and go to state 5
+
+state 48
+
+    (18) increment -> ID PLUSEQ expression .
+
+    RPAREN          reduce using rule 18 (increment -> ID PLUSEQ expression .)
+
+
+state 49
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt . RBRACE
+
+    RBRACE          shift and go to state 52
+
+
+state 50
+
+    (7) statement_list_opt -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . for_statement
+    (5) statement -> . func_call SEMI
+    (6) for_statement -> . FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE
+    (19) func_call -> . SYSTEM DOT PRINT LPAREN args RPAREN
+
+    RBRACE          reduce using rule 7 (statement_list_opt -> statement_list .)
+    FOR             shift and go to state 6
+    SYSTEM          shift and go to state 7
+
+    statement                      shift and go to state 8
+    for_statement                  shift and go to state 4
+    func_call                      shift and go to state 5
+
+state 51
+
+    (8) statement_list_opt -> empty .
+
+    RBRACE          reduce using rule 8 (statement_list_opt -> empty .)
+
+
+state 52
+
+    (6) for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE .
+
+    FOR             reduce using rule 6 (for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE .)
+    SYSTEM          reduce using rule 6 (for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE .)
+    $end            reduce using rule 6 (for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE .)
+    RBRACE          reduce using rule 6 (for_statement -> FOR LPAREN assignment SEMI condition SEMI increment RPAREN LBRACE statement_list_opt RBRACE .)
+

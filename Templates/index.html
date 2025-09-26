@@ -1,0 +1,72 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizador Léxico y Sintáctico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Analizador Léxico y Sintáctico</h1>
+        <form method="POST" id="codeForm">
+            <textarea name="code" rows="10" placeholder="Escribe aqui">{% if code %}{{ code }}{% endif %}</textarea>
+            <div class="buttons">
+                <button formaction="{{ url_for('analyze_lex') }}" formmethod="post">Analizar Léxico</button>
+                <button formaction="{{ url_for('analyze_syn') }}" formmethod="post">Analizar Sintáctico</button>
+            </div>
+        </form>
+
+        <div class="results">
+            {% if lex_errors %}
+                <h2>Errores Léxicos</h2>
+                <ul class="errors">
+                    {% for e in lex_errors %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if lex_results %}
+                <h2>Tabla de Tokens</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Reservada</th>
+                            <th>Identificador</th>
+                            <th>Número</th>
+                            <th>Símbolo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in lex_results %}
+                        <tr>
+                            <td>{{ t.token }}</td>
+                            <td style="text-align:center">{{ t.reservada }}</td>
+                            <td style="text-align:center">{{ t.identificador }}</td>
+                            <td style="text-align:center">{{ t.numero }}</td>
+                            <td style="text-align:center">{{ t.simbolo }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            {% if syn_errors %}
+                <h2>Errores</h2>
+                <ul class="errors">
+                    {% for e in syn_errors %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if syn_result %}
+                <h2>Resultado</h2>
+                <pre>{{ syn_result }}</pre>
+            {% endif %}
+            
+        </div>
+    </div>
+</body>
+</html>
