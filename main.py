@@ -9,7 +9,6 @@ app = Flask(__name__)
 def index():
     return render_template("index.html", lex_results=None, lex_errors=None, syn_result=None, syn_errors=None)
 
-# Ruta para análisis léxico
 @app.route("/lex", methods=["POST"])
 def analyze_lex():
     code = request.form.get("code", "")
@@ -21,7 +20,6 @@ def analyze_lex():
         tok = lexer.token()
         if not tok: break
 
-        # Categorías fijas
         row = {
             "token": tok.value,
             "reservada": "",
@@ -30,7 +28,6 @@ def analyze_lex():
             "simbolo": ""
         }
 
-        # Clasificación
         if tok.type in ["FOR", "WHILE", "IF", "SYSTEM", "PRINT"]:
             row["reservada"] = "X"
         elif tok.type == "ID":
@@ -54,12 +51,11 @@ def analyze_lex():
         syn_errors=None,
         code=code
     )
-# Ruta para análisis sintáctico
+
 @app.route("/syn", methods=["POST"])
 def analyze_syn():
     code = request.form.get("code", "")
     ast, errors = parse_input(code)
-    # También recopilar errores léxicos que puedan haberse generado
     lex_errors = lexmod.lexer_errors.copy()
     return render_template("index.html", lex_results=None, lex_errors=lex_errors, syn_result=ast, syn_errors=errors, code=code)
 
